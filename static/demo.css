@@ -1,0 +1,332 @@
+/*Copyright (C) 2021 NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This work is made available under the Nvidia Source Code License-NC.
+To view a copy of this license, check out LICENSE.md
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+body {
+	background: #F5F5F5;
+	font-family: sans-serif;
+	height: 100%;
+	width: 100%;
+}
+
+
+canvas#custom {
+	width: 110px;
+	height: 110px;
+}
+
+
+canvas#brush_color {
+  background: #FFF;
+  display: block;
+  margin: 10px auto 10px;
+  border-radius: 5px;
+  border-left: 1px solid #E0E0E0;
+  border-right: 1px solid #E0E0E0;
+  border-top: 1px solid #E0E0E0;
+  box-shadow: 0 4px 0 0 #E0E0E0;
+}
+
+
+canvas#viewport {
+	background: #FFF;
+	display: block;
+	margin: 10px auto 10px;
+	border-radius: 5px;
+	border-left: 1px solid #E0E0E0;
+	border-right: 1px solid #E0E0E0;
+	border-top: 1px solid #E0E0E0;
+	box-shadow: 0 4px 0 0 #E0E0E0;
+}
+
+
+canvas#output {
+	background: #FFF;
+	display: block;
+	margin: 10px auto 10px;
+	border-radius: 5px;
+	border-left: 1px solid #E0E0E0;
+	border-right: 1px solid #E0E0E0;
+	border-top: 1px solid #E0E0E0;
+	box-shadow: 0 4px 0 0 #E0E0E0;
+}
+
+
+canvas#output2k {
+  display: none;
+}
+
+
+hr { 
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: solid;
+  border-width: 2px;
+}
+
+
+.table {
+  border: 1px solid black;
+  /*width: 1880px;*/
+  width: 1480px;
+}
+
+
+.td{
+  border: 1px solid black;
+}
+
+
+.btncat, .btnclr, .btn {
+  border: none;
+  background-color: inherit;
+  padding: 2px 2px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  width: 120px;
+  text-align: left
+}
+
+
+.custom-file-input-segmap::-webkit-file-upload-button { visibility: hidden; }
+.custom-file-input-segmap:hover::before { border-color: black; }
+.custom-file-input-segmap:active::before { background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);}
+
+
+.custom-file-input-real::-webkit-file-upload-button { visibility: hidden; }
+.custom-file-input-real:hover::before { border-color: black; }
+.custom-file-input-real:active::before { background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); }
+
+
+.custom-file-input::-webkit-file-upload-button { visibility: hidden; }
+.custom-file-input:hover::before { border-color: black; }
+.custom-file-input:active::before { background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); }
+
+
+.custom-file-input-segmap::before {
+  content: 'Browse..';
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 2px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 14pt;
+  value: 'seg';
+}
+
+
+.custom-file-input-real::before {
+  content: 'Browse..';
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 2px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 14pt;
+}
+
+
+.custom-file-input::before {
+  content: 'Browse..';
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 2px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 14pt;
+}
+
+
+.uploadbtn { font-size: 14pt; width 30% }
+.container { 
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+
+.container .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: transparent;
+  color: transparent;
+  padding: 0px 0px;
+  border: none;
+  cursor: pointer;
+  border-radius: 0px;
+  text-align: center;
+  font-size: 72px;
+}
+
+.container .btn:hover {
+  background-color: transparent;
+}
+
+.slider {
+  width: 80%;
+}
+
+
+.random {background-image: url(random.png); height: 110px; width: 110px; background-size: 100%;}
+.example0 {background-image: url(./images/car_real/0.jpg); height: 82.5px; width: 110px; background-size: 100%;}
+.example1 {background-image: url(./images/car_real/1.jpg); height: 82.5px; width: 110px; background-size: 100%;}
+.example2 {background-image: url(./images/car_real/2.jpg); height: 82.5px; width: 110px; background-size: 100%;}
+.example3 {background-image: url(./images/car_real/3.jpg); height: 82.5px; width: 110px; background-size: 100%;}
+.example4 {background-image: url(./images/car_real/4.jpg); height: 82.5px; width: 110px; background-size: 100%;}
+.example5 {background-image: url(./images/car_real/5.jpg); height: 82.5px; width: 110px; background-size: 100%;}
+.example6 {background-image: url(./images/car_real/6.jpg); height: 82.5px; width: 110px; background-size: 100%;}
+.example7 {background-image: url(./images/car_real/7.jpg); height: 82.5px; width: 110px; background-size: 100%;}
+.example8 {background-image: url(./images/car_real/8.jpg); height: 82.5px; width: 110px; background-size: 100%;}
+.example9 {background-image: url(./images/car_real/9.jpg); height: 82.5px; width: 110px; background-size: 100%;}
+.example10 {background-image: url(./images/car_real/10.jpg); height: 82.5px; width: 110px; background-size: 100%;}
+
+
+.info_segmap {background-image: url(info.png); height: 16px; width: 16px; background-size: 100%;}
+.info_real {background-image: url(info.png); height: 16px; width: 16px; background-size: 100%;}
+.info_style {background-image: url(info.png); height: 16px; width: 16px; background-size: 100%;}
+
+
+.render {background-image: url(run.png); height: 48px; width: 48px;  background-size: 100%;}
+.save_render {background-image: url(save.png); height: 48px; width: 48px;  background-size: 100%;}
+.save {background-image: url(save.png); height: 48px; width: 48px;  background-size: 100%;}
+.load {background-image: url(open.png); height: 48px; width: 48px;  background-size: 100%;}
+.load_image {background-image: url(load.png); height: 48px; width: 48px;  background-size: 100%;}
+.new {background-image: url(add-new-document.png); height: 48px; width: 48px;  background-size: 100%;}
+.hd {background-image: url(hd.png); height: 48px; width: 48px;  background-size: 100%;}
+.fourk {background-image: url(4k.png); height: 48px; width: 48px;  background-size: 100%;}
+.brush {background-image: url(paint-brush.png); height: 48px; width: 48px;  background-size: 100%;}
+.fill {background-image: url(paint-can.png); height: 48px; width: 48px; background-size: 100%;}
+.eyedropper {background-image: url(eyedropper.png); height: 48px; width: 48px;  background-size: 100%;}
+.undo {background-image: url(undo.png); height: 48px; width: 48px;  background-size: 100%;}
+.ellipse {background-image: url(ellipse.png); height: 48px; width: 48px; background-size: 100%;}
+.rectangle {background-image: url(rectangle.png); height: 48px; width: 48px; background-size: 100%;}
+
+
+.hd_active {background-image: url(hd.png); height: 48px; width: 48px;  background-size: 100%; background-color: #d0d0d0;}
+.fourk_active {background-image: url(4k.png); height: 48px; width: 48px;  background-size: 100%; background-color: #d0d0d0;}
+.brush_active {background-image: url(paint-brush.png); height: 48px; width: 48px;  background-size: 100%; background-color: #d0d0d0;}
+.fill_active {background-image: url(paint-can.png); height: 48px; width: 48px; background-size: 100%; background-color: #d0d0d0;}
+.eyedropper_active {background-image: url(eyedropper.png); height: 48px; width: 48px; background-size: 100%; background-color: #d0d0d0;}
+.undo_active {background-image: url(undo.png); height: 48px; width: 48px;  background-size: 100%; background-color: #d0d0d0;}
+.ellipse_active {background-image: url(ellipse.png); height: 48px; width: 48px; background-size: 100%; background-color: #d0d0d0;}
+.rectangle_active {background-image: url(rectangle.png); height: 48px; width: 48px; background-size: 100%; background-color: #d0d0d0;}
+
+
+.brush_circle {background-image: url(brush_circle.png); height: 24px; width: 24px;  background-size: 100%;}
+.brush_square {background-image: url(brush_square.png); height: 24px; width: 24px;  background-size: 100%;}
+.brush_diamond {background-image: url(brush_diamond.png); height: 24px; width: 24px;  background-size: 100%;}
+.brush_circle_active {background-image: url(brush_circle.png); height: 24px; width: 24px;  background-size: 100%; background-color: #d0d0d0;}
+.brush_square_active {background-image: url(brush_square.png); height: 24px; width: 24px;  background-size: 100%; background-color: #d0d0d0;}
+.brush_diamond_active {background-image: url(brush_diamond.png); height: 24px; width: 24px;  background-size: 100%; background-color: #d0d0d0;}
+
+
+
+.cat-bldg { color: #202020 }
+.cat-ground { color: #202020 }
+.cat-plant { color: #202020 }
+.cat-landscape { color: #202020 }
+.cat-bldg:hover { background: #606060; color: white;}
+.cat-ground:hover { background: #606060; color: white;}
+.cat-plant:hover { background: #606060; color: white;}
+.cat-active, .cat-landscape:hover  { background: #606060; color: white;}
+
+
+.lbl-bridge { color: #202020 }
+.lbl-bush { color: #202020 }
+.lbl-clouds { color: #202020 }
+.lbl-dirt { color: #202020 }
+.lbl-fence { color: #202020 }
+.lbl-flower { color: #202020 }
+.lbl-fog { color: #202020 }
+.lbl-grass { color: #202020 }
+.lbl-gravel { color: #202020 }
+.lbl-ground-other { color: #202020 }
+.lbl-hill { color: #202020 }
+.lbl-house { color: #202020 }
+.lbl-mountain { color: #202020 }
+.lbl-mud { color: #202020 }
+.lbl-pavement { color: #202020 }
+.lbl-platform { color: #202020 }
+.lbl-river { color: #202020 }
+.lbl-road { color: #202020 }
+.lbl-rock { color: #202020 }
+.lbl-roof { color: #202020 }
+.lbl-sand { color: #202020 }
+.lbl-sea { color: #202020 }
+.lbl-sky { color: #202020 }
+.lbl-snow { color: #202020 }
+.lbl-stone { color: #202020 }
+.lbl-straw { color: #202020 }
+.lbl-tree { color: #202020 }
+.lbl-wall-brick { color: #202020 }
+.lbl-wall-stone { color: #202020 }
+.lbl-wall-wood { color: #202020 }
+.lbl-water { color: #202020 }
+.lbl-wood { color: #202020 }
+
+
+.lbl-bridge:hover { background: #5e5bc5; color white;}
+.lbl-bush:hover { background: #606e32; color white;}
+.lbl-clouds:hover { background: #696969; color white;}
+.lbl-dirt:hover { background: #6e6e28; color white;}
+.lbl-fence:hover { background: #706419; color white;}
+.lbl-flower:hover { background: #760000; color white;}
+.lbl-fog:hover { background: #77ba1d; color white;}
+.lbl-grass:hover { background: #7bc800; color white;}
+.lbl-gravel:hover { background: #7c32c8; color white;}
+.lbl-ground-other:hover { background: #7d3054; color white;}
+.lbl-hill:hover { background: #7ec864; color white;}
+.lbl-house:hover { background: #7f4502; color white;}
+.lbl-mountain:hover { background: #869664; color white;}
+.lbl-mud:hover { background: #87716f; color white;}
+.lbl-pavement:hover { background: #8b3027; color white;}
+.lbl-platform:hover { background: #8f2a91; color white;}
+.lbl-river:hover { background: #9364c8; color white;}
+.lbl-road:hover { background: #946e28; color white;}
+.lbl-rock:hover { background: #956432; color white;}
+.lbl-roof:hover { background: #9600b1; color white;}
+.lbl-sand:hover { background: #999900; color white;}
+.lbl-sea:hover { background: #9ac6da; color white;}
+.lbl-sky:hover { background: #9ceedd; color white;}
+.lbl-snow:hover { background: #9e9eaa; color white;}
+.lbl-stone:hover { background: #a1a164; color white;}
+.lbl-straw:hover { background: #a2a3eb; color white;}
+.lbl-tree:hover { background: #a8c832; color white;}
+.lbl-wall-brick:hover { background: #aad16a; color white;}
+.lbl-wall-stone:hover { background: #ae2974; color white;}
+.lbl-wall-wood:hover { background: #b0c1c3; color white;}
+.lbl-water:hover { background: #b1c8ff; color white;}
+.lbl-wood:hover { background: #b57b00; color white;}

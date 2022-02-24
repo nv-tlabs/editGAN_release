@@ -1,0 +1,13 @@
+Flask==2.0.1
+Flask_Cors==3.0.10
+imageio==2.15.0
+ipdb==0.13.9
+ipython==8.0.1
+numpy==1.21.2
+Pillow==9.0.1
+scikit_image==0.15.0
+scipy==1.6.3
+skimage==0.0
+torch==1.10.0a0+3fd9dcf
+torchvision==0.11.0a0
+tqdm==4.62.1

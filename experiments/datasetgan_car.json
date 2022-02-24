@@ -1,0 +1,21 @@
+{
+  "exp_dir": "model_interpreter/car_batch_8_loss_sampling_train_stylegan2",
+  "batch_size": 64,
+  "category": "car",
+  "debug": false,
+  "dim": [384, 512, 6016],
+  "number_class": 32,
+  "testing_data_number_class": 32,
+  "max_training": 32,
+  "stylegan_ver": "2",
+  "annotation_data_from_w": true,
+  "annotation_mask_path":  "/home/linghuan/ngccli/3D-SDN-mount/styleganSeg/data/annotation_car_32_clean",
+  "testing_path": "",
+  "stylegan_checkpoint": "./checkpoint/stylegan_pretrain/stylegan2_networks_stylegan2-car-config-f_with_d.pt",
+  "model_num": 10,
+    "upsample_mode":"bilinear",
+    "optimized_latent_path": {"train":  "./checkpoint/encoder_pretrain/training_embedding/",
+                            "test":  "" }
+}
+
+

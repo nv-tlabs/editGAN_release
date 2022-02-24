@@ -1,0 +1,265 @@
+<!---
+Copyright (C) 2022 NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This work is made available under the Nvidia Source Code License-NC.
+To view a copy of this license, check out LICENSE.md
+--->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='demo.css') }}">
+
+
+</head>
+
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+
+<div>
+
+<table class='table'>
+<tr>
+  <td width=11% valign="center"><h4>Fill/brush color: </h4></td>
+  <td width=4% valign="center"><canvas id="brush_color"></canvas></td>      
+  <td width=11% valign="center"><h4>Brush shape: </h4></td>
+  <td width=10%>
+      <button id="brush_circle" class="btn brush_circle"></button>
+      <button id="brush_square" class="btn brush_square"></button>
+      <button id="brush_diamond" class="btn brush_diamond"></button>    
+  </td>
+  <td width=9%><h4>Brush size: </h4></td>
+  <td width=4%><h4><span id="rangevalue"></span></h4></td>
+  <td> <input type="range" step= "2" min="2" max="200" value="24" class="slider" id="myRange"> </td>
+  <td width=10% align='right'>
+
+    <a target="_blank" href='https://www.nvidia.com/en-us/research/'><img src="{{url_for('static', filename='nvidia.png') }}" style="width:100%;"></a>
+  </td>  
+  <td width=12% align='center'><h4>EditGAN Beta</h4><td>  
+</tr>
+</table>
+
+<table class='table' id="main_frame">
+<tr> 
+<td  width=8% valign="top">
+<div class='btn-group' id="category">
+<table>
+<tr><th><button class="btncat cat-car">Car</button></th></tr>
+</table>
+</div>
+<hr>
+<div class="btn-group" id="palette"> 
+</div>
+</td>
+
+<td valign='top' class='td' align='center'>
+<table>
+<tr><th><button style="display:none" id="rectangle" class="btn rectangle"></button></th></tr>
+<tr><th><button id="brush" class="btn brush"></button></th></tr>
+<tr><th><button id="fill" class="btn fill"></button></th></tr>
+<tr><th><button id="eyedropper" class="btn eyedropper"></button></th></tr>
+<tr><th><button id="undo" class="btn undo"></button></th></tr>
+</table>
+</td>
+
+<td align='center'><canvas id="viewport"></canvas> </td>
+<td valign='bottom' algin='left'>
+  <a id="download" download="segmentaion.png" href="" onclick="download_segmap(this);"><button id="save" class="btn save"></button></a>
+</td>
+<td valign='center' class='td' align='center'>
+<button id="render" class="btn render"></button>
+
+ <img  style="display:none"  id="loading" src = "{{url_for('static', filename='loading.gif') }}"/>
+
+    <a id="download_identity_vector" style="display:none" target="_blank" href="" onclick='downloadCurrentEditVector(this);'><button id="save_vector" class="btn save_render"></button></a>
+
+</td>
+
+
+
+
+
+
+<td align='center'><canvas id="output"></canvas> </td>
+
+
+
+<td valign='bottom' algin='left'>
+<a id="download" onclick="download_rendered(this);"><button id="save_render" class="btn save_render"></button></a>
+
+
+
+
+</td>
+
+
+
+</tr>
+</table>
+
+
+<table class='table'>
+
+  <tr>
+  <th><button id="random"   class="btn random"></button></th>
+
+  <th><button id="example0" class="btn example0"></button></th>  
+  <th><button id="example1" class="btn example1"></button></th>
+  <th><button id="example2" class="btn example2"></button></th>
+  <th><button id="example3" class="btn example3"></button></th>
+  <th><button id="example4" class="btn example4"></button></th>
+  <th><button id="example5" class="btn example5"></button></th>
+  <th><button id="example6" class="btn example6"></button></th>
+  <th><button id="example7" class="btn example7"></button></th>
+  <th><button id="example8" class="btn example8"></button></th>
+  <th><button id="example9" class="btn example9"></button></th>
+  <th><button id="example10" class="btn example10"></button></th>
+  <th></th> <th></th> <th></th> <th></th> <th></th> <th></th>
+  <th><div class="container"><canvas id="custom"></canvas>
+      <button id="customBtn" class="btn">b</button></div></th>
+  </tr>
+</table>
+
+<table class='table'>
+<tr>
+<td align='center' class="w3-button w3-light-gray" width=50%>
+<table>
+  <tr><th><h4>Upload Image <button id="info_real" class="btn info_real"></button> </h4></th></tr>
+  <tr><th>  
+  <form action='#' onsubmit="return false;">
+      <input type='file' accept="image/*" class="custom-file-input-real" id='realfile'/>
+      <input type='button' id='btnRealLoad' class="uploadbtn" value='Upload' onclick='loadReal();' />
+  </form>
+  </th></tr></table>
+  </td>
+<td align='center' class="w3-button w3-gray" width=50%>
+<table>
+  <tr><th><h4>Upload Custom Editing Vector<button id="info_style" class="btn info_style"></button></h4></th>  </tr>
+  <tr><th>
+  <form action='#' onsubmit="return false;">
+    <input type='file' class="custom-file-input" id='vectorfile'/>
+    <input type='button' id='btnLoad' class="uploadbtn" value='Upload' onclick='loadVector();'   />
+  </form>
+  </th></tr>
+</table>
+  </td>
+
+</tr>
+</table>
+
+
+    <table class='table'>
+<tr>
+  <td align='center' class="w3-button w3-gray"  width=50%>
+<table>
+  <tr><th><h4>Apply Current Editing Vector<button id="info_style" class="btn info_style"></button></h4></th>  </tr>
+
+
+     <tr>
+
+    <form action='#' onsubmit="return false;">
+
+   <th>    <input type="range" min="-8" max="8" value="0" class="slider" id="curr_scale"/>
+
+
+             <tr>
+      <th>  <label for="curr_editing_vector_steps">Finetune Steps:</label>
+  <select id="curr_editing_vector_steps">
+    <option value="0">No Finetune</option>
+    <option value="10">10 Steps</option>
+        <option value="30">30 Steps</option>
+
+  </select> </th>
+
+  <th>   <input type='button' id='btnLoad' class="uploadbtn" value='Apply Editing' onclick='applyCurrentEditVector();' /></th>
+
+</tr>
+
+    </form>
+
+
+
+
+
+</tr></table>
+  </td>
+
+
+  <td align='center' class="w3-button w3-light-gray" width=50%>
+<table>
+  <tr><th><h4>Apply Predefined Editing Vector<button id="info_style" class="btn info_style"></button></h4></th>  </tr>
+
+     <tr>
+
+         <form action='#' onsubmit="return false;">
+  <tr>
+ <th>  <label for="editing_vector">Choose an operation:</label>
+  <select id="editing_vector">
+    <option value="wheel_enlarge">Wheel Size</option>
+    <option value="frontlight_enlarge">Front Light Size</option>
+  </select>
+ </th>  </tr>
+   <th>    <input type="range" min="-4" max="4" value="0" class="slider" id="scale"/>
+
+
+             <tr>
+      <th>  <label for="editing_vector_steps">Finetune Steps:</label>
+  <select id="editing_vector_steps">
+    <option value="0">No Finetune</option>
+    <option value="10">10 Steps</option>
+        <option value="30">30 Steps</option>
+
+  </select> </th>
+
+  <th>   <input type='button' id='btnLoad' class="uploadbtn" value='Apply Editing' onclick='applyEditVector();' /></th>
+</tr>
+
+
+
+    </form>
+
+
+
+
+
+
+</tr></table>
+  </td>
+
+</tr>
+</table>
+
+<h4>
+<table class='table'>
+<tr><th align='left'>
+  <h4>
+  <ul>  
+  <p class="w3-red">
+  <input type="checkbox" id="myCheck" value=0 style="width:28px;height:28px;" onclick="toggleCheckbox()"> Check this box if you agree to the terms and conditions described below.
+  </p>    
+  <p class="w3-light-gray"> 1. By using the app, you are agreeing that NVIDIA may store, use, and redistribute the uploaded file for research or commercial purposes. You are also agreeing to this service <a href="{{url_for('static', filename='term.txt') }}" >Terms and Conditions</a>.</p>
+  <p class="w3-light-gray"> 2. Checkout out our <a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/">Privacy Policy</a>. </p>
+  <p class="w3-light-gray"> 3. <b>Hotkeys. Ctrl + Shift + B = Brush. Ctrl + Shift + F = Fill. Ctrl + Z = Undo</b></p>  
+
+</ul>
+</h4>
+</th></tr>
+</table>
+</h4>
+
+<canvas style="display:none" id="roi_view"></canvas>
+<canvas style="display:none" id="upload_canvas"></canvas>
+
+
+
+<script src="{{url_for('static', filename='demo_origin.js') }}"></script>
+
+<script src="https://unpkg.com/konva@8/konva.min.js"></script>
+
+
+</body>
+</html>
