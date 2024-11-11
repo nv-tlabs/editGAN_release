@@ -93,7 +93,7 @@ Here, we provide step-by-step instructions to create a new EditGAN model. We use
 
   - Specify "stylegan_checkpoint" field in `experiments/datasetgan_car.json`.
 
-  - Download DatasetGAN training images and annotations from [drive](https://drive.google.com/drive/u/1/folders/17vn2vQOF1PQETb1ZgQZV6PlYCkSzSRSa) and fill in "annotation_mask_path" in `experiments/datasetgan_car.json`.
+  - Download DatasetGAN training images and annotations from [drive](https://drive.google.com/drive/folders/1E7M8hgLa0ZSK9xk_65j-gnnpoRsJ6aId?usp=drive_link) and fill in "annotation_mask_path" in `experiments/datasetgan_car.json`.
 
   - Embed DatasetGAN training images in latent space using
 
@@ -111,7 +111,7 @@ Here, we provide step-by-step instructions to create a new EditGAN model. We use
 
 - **Step 3:** Run the app.
 
-  - Download DatasetGAN test images and annotations from [drive](https://drive.google.com/drive/u/1/folders/1DxHzs5XNn1gLJ_6vAVctdl__nNZerxue). 
+  - Download DatasetGAN test images and annotations from [drive](https://drive.google.com/drive/folders/1E7M8hgLa0ZSK9xk_65j-gnnpoRsJ6aId?usp=drive_link). 
 
   - Embed DatasetGAN test images in latent space via
 
