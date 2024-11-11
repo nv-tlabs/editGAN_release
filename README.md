@@ -52,7 +52,7 @@ export PYTHONPATH=$PWD
 
 In the repo, we release our demo tool and pre-trained models for the *car* class. Follow these steps to set up our interactive WebAPP:   
 
-- Download all checkpoints from [checkpoints](https://drive.google.com/drive/folders/1neucNSPp23CeoZs7n5JxrlaCi_rLhwAj?usp=sharing) and put them into a **./checkpoint** folder:
+- Download all checkpoints from [checkpoints](https://drive.google.com/drive/folders/17hVqkBQGx_GLipFsf0AJTzM_qnL9blH_?usp=sharing) and put them into a **./checkpoint** folder:
 
   - **./checkpoint/stylegan_pretrain**: Download the pre-trained checkpoint from [StyleGAN2](https://github.com/NVlabs/stylegan2) and convert the tensorflow checkpoint to pytorch. We also released the converted checkpoint for your convenience. 
   - **./checkpoint/encoder_pretrain**: Pre-trained encoder.
