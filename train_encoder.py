@@ -59,7 +59,8 @@ def embed_one_example(args, path, stylegan_encoder, g_all, upsamplers,
     label_im_tensor = label_im_tensor * 2.0 - 1.0
     label_im_tensor = label_im_tensor.unsqueeze(0)
     latent_in = stylegan_encoder(label_im_tensor)
-    im_out_wo_encoder, _ = latent_to_image(g_all, upsamplers, latent_in,
+    with torch.no_grad():
+        im_out_wo_encoder, _ = latent_to_image(g_all, upsamplers, latent_in,
                                            process_out=True, use_style_latents=True,
                                            return_only_im=True)
 
@@ -173,7 +174,7 @@ def main(args, resume):
     ).to(device)
     stylegan_encoder = FPNEncoder(3, n_latent=args['n_latent'], only_last_layer=args['use_w'], same_view_code=args['same_view_code'])
     stylegan_encoder = stylegan_encoder.to(device)
-
+    stylegan_encoder.eval()
     if resume != "":
         stylegan_encoder.load_state_dict(torch.load(resume, map_location=device)['model_state_dict'])
 
